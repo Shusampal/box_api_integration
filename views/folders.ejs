@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folders Page</title>
+</head>
+
+<body>
+    <h1>Folder Structure</h1><br>
+    <h2>Root Level Folders</h2>
+    <div style="background-color: lightpink; padding: 5px;">
+        <% tree.folders.forEach(folder=> { %>
+            <h3>Folder name : <span><%- folder.item.name %></span></h3>
+            <ul>
+                <% folder.children.forEach(child => {%>
+                    <%if(child.type === "file"){%>
+                        <li style="margin : 5px; display: flex; flex-direction: row; align-items: center; justify-content: baseline;"><span>File name : &nbsp;</span><%- child.name %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="background-color: lightgreen;"><a
+                            style="text-decoration: none; font-size: larger;" href=<%- "https://api.box.com/2.0/files/"
+                            + child.id + "/content?access_token=" + access_token %>>download</a></button></li>
+                    <%} else {%>
+                        <li style="margin : 5px; display: flex; flex-direction: row; align-items: center; justify-content: baseline;"><span>Folder name : &nbsp;</span><%- child.name %></li>
+                    <%}%>
+                <%})%>
+            </ul>
+        <%})%>
+    </div>
+    <br>
+    <h2>Root Level Files</h2>
+    <div style="background-color: lightblue; padding : 5px;">
+        <% tree.files.forEach(file=> { %>
+            <% if(file.path==="0" ){%>
+                <li style="margin : 5px; display: flex; flex-direction: row; align-items: center; justify-content: baseline;"><span>File name : &nbsp;</span><%- file.item.name %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="background-color: lightgreen;"><a
+                                style="text-decoration: none; font-size: larger;" href=<%- "https://api.box.com/2.0/files/"
+                                + file.item.id + "/content?access_token=" + access_token %>>download</a></button></li>
+                <br>
+            <%}%>
+        <%})%>
+    </div>
+    
+</body>
+
+</html>
